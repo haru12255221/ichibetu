@@ -6,33 +6,31 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Restaurant {
   id           String   @id @default(cuid())
-  name         String   @db.VarChar(100)
-  address      String   @db.Text
-  hours        String?  @db.VarChar(200)
-  phone        String?  @db.VarChar(20)
-  mainImageUrl String   @db.Text
-  ownerMessage String   @db.VarChar(200)
-  story        String   @db.Text
+  name         String
+  address      String
+  hours        String?
+  phone        String?
+  mainImageUrl String
+  ownerMessage String
+  story        String
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   favorites Favorite[]
 
-  @@index([isActive])
   @@map("restaurants")
 }
 
 model User {
   id        String   @id @default(cuid())
-  sessionId String   @unique @db.VarChar(255)
+  sessionId String   @unique
   createdAt DateTime @default(now())
 
   favorites Favorite[]
@@ -50,7 +48,5 @@ model Favorite {
   restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
 
   @@unique([userId, restaurantId])
-  @@index([userId])
-  @@index([createdAt])
   @@map("favorites")
 }

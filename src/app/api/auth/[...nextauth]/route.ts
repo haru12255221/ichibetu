@@ -1,23 +1,36 @@
 import NextAuth from "next-auth"
 import type { NextAuthOptions } from "next-auth"
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { prisma } from "@/lib/prisma"
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
   providers: [
-    // 匿名ユーザー対応のため、セッションベース認証を使用
+    // 開発段階では認証なしで進める
   ],
   session: {
-    strategy: "database",
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30日
   },
   callbacks: {
-    session: async ({ session, user }) => {
-      if (session?.user) {
-        session.user.id = user.id
+    async jwt({ token }) {
+      // 簡単な匿名ユーザーID生成
+      if (!token.userId) {
+        token.userId = `anonymous_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user = {
+          id: token.userId as string,
+          name: "匿名ユーザー",
+          email: null,
+          image: null,
+        }
       }
       return session
     },
+  },
+  pages: {
+    // カスタムページは使用しない
   },
 }
 
