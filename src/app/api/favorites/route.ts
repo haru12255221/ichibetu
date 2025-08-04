@@ -3,6 +3,66 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '../auth/[...nextauth]/route'
 import { prisma } from '../../../../lib/prisma'
 
+// お気に入り一覧取得API（GET）
+export async function GET(request: NextRequest) {
+  try {
+    // セッションからユーザー情報を取得（開発用：セッションがない場合はテストユーザーを使用）
+    const session = await getServerSession(authOptions)
+    let userId: string
+    
+    if (session?.user?.id) {
+      userId = session.user.id
+    } else {
+      // 開発用：固定のテストユーザーIDを使用
+      userId = 'dev_test_user_fixed'
+      console.log('開発用固定テストユーザーを使用:', userId)
+    }
+
+    // ユーザーが存在するかチェック
+    const user = await prisma.user.findUnique({
+      where: { sessionId: userId }
+    })
+
+    if (!user) {
+      // ユーザーが存在しない場合は空のリストを返す
+      return NextResponse.json({
+        favorites: [],
+        message: 'お気に入りはまだありません'
+      })
+    }
+
+    // お気に入り一覧を取得（店舗情報を含む）
+    const favorites = await prisma.favorite.findMany({
+      where: { userId: user.id },
+      include: {
+        restaurant: {
+          select: {
+            id: true,
+            name: true,
+            mainImageUrl: true,
+            ownerMessage: true,
+            address: true
+          }
+        }
+      },
+      orderBy: { createdAt: 'desc' } // 作成日時順（新しい順）
+    })
+
+    return NextResponse.json({
+      favorites: favorites,
+      count: favorites.length,
+      message: favorites.length > 0 ? `${favorites.length}件のお気に入りがあります` : 'お気に入りはまだありません'
+    })
+
+  } catch (error) {
+    console.error('お気に入り一覧取得エラー:', error)
+    return NextResponse.json(
+      { error: 'サーバーエラーが発生しました' },
+      { status: 500 }
+    )
+  }
+}
+
 // お気に入り追加API（POST）
 export async function POST(request: NextRequest) {
   try {
@@ -13,9 +73,9 @@ export async function POST(request: NextRequest) {
     if (session?.user?.id) {
       userId = session.user.id
     } else {
-      // 開発用：セッションがない場合はテストユーザーIDを使用
-      userId = 'test_user_' + Date.now()
-      console.log('開発用テストユーザーを使用:', userId)
+      // 開発用：固定のテストユーザーIDを使用
+      userId = 'dev_test_user_fixed'
+      console.log('開発用固定テストユーザーを使用:', userId)
     }
 
     // リクエストボディから店舗IDを取得
