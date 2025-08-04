@@ -63,6 +63,35 @@ export default function TestFavoritesPage() {
     }
   }
 
+  // お気に入り削除テスト
+  const deleteFavorite = async (favoriteId: string, restaurantName: string) => {
+    console.log('お気に入り削除開始 - お気に入りID:', favoriteId)
+    setLoading(true)
+    setMessage('')
+
+    try {
+      const response = await fetch(`/api/favorites/${favoriteId}`, {
+        method: 'DELETE',
+      })
+
+      const data = await response.json()
+      console.log('削除API レスポンス:', response.status, data)
+
+      if (response.ok) {
+        setMessage(`✅ ${data.message}`)
+        // お気に入り削除後、一覧を再取得
+        await fetchFavorites()
+      } else {
+        setMessage(`❌ ${data.error}`)
+      }
+    } catch (error) {
+      setMessage('❌ 削除でネットワークエラーが発生しました')
+      console.error('お気に入り削除エラー:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   // お気に入り追加テスト
   const addToFavorites = async (restaurantId: string) => {
     console.log('お気に入り追加開始 - 店舗ID:', restaurantId)
@@ -135,12 +164,23 @@ export default function TestFavoritesPage() {
             <div className="space-y-3">
               {favorites.map((favorite) => (
                 <div key={favorite.id} className="border p-4 rounded-lg bg-yellow-50">
-                  <h3 className="font-semibold text-yellow-800">{favorite.restaurant.name}</h3>
-                  <p className="text-gray-600 text-sm">{favorite.restaurant.ownerMessage}</p>
-                  <p className="text-gray-500 text-xs">{favorite.restaurant.address}</p>
-                  <p className="text-gray-400 text-xs mt-2">
-                    追加日時: {new Date(favorite.createdAt).toLocaleString('ja-JP')}
-                  </p>
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-yellow-800">{favorite.restaurant.name}</h3>
+                      <p className="text-gray-600 text-sm">{favorite.restaurant.ownerMessage}</p>
+                      <p className="text-gray-500 text-xs">{favorite.restaurant.address}</p>
+                      <p className="text-gray-400 text-xs mt-2">
+                        追加日時: {new Date(favorite.createdAt).toLocaleString('ja-JP')}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => deleteFavorite(favorite.id, favorite.restaurant.name)}
+                      disabled={loading}
+                      className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 disabled:opacity-50 ml-4"
+                    >
+                      {loading ? '削除中...' : '削除'}
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
