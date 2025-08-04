@@ -13,12 +13,12 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token }) {
       // 簡単な匿名ユーザーID生成
       if (!token.userId) {
-        token.userId = `anonymous_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+        token.userId = `anonymous_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`
       }
       return token
     },
     async session({ session, token }) {
-      if (token) {
+      if (token && token.userId) {
         session.user = {
           id: token.userId as string,
           name: "匿名ユーザー",
