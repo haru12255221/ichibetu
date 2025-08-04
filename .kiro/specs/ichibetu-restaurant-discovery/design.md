@@ -524,8 +524,25 @@ const preloadNextImages = (restaurants: Restaurant[], currentIndex: number) => {
 
 ### 認証・認可
 
+#### 開発段階での認証機能簡素化（2025年1月実装）
+
+開発効率を優先し、認証機能を段階的に実装する方針に変更：
+
 ```typescript
-// シンプルなセッション認証
+// 開発段階：シンプルな匿名ユーザー管理
+export function useAuth() {
+  const [userId] = useState(() => `dev_user_${Date.now()}`)
+  
+  return {
+    user: { id: userId, name: "開発用ユーザー" },
+    userId: userId,
+    sessionId: userId,
+    isLoading: false,
+    isAuthenticated: true,
+  }
+}
+
+// 本番段階：NextAuth.js + JWT認証
 interface SessionData {
   userId: string
   createdAt: Date
@@ -539,6 +556,12 @@ app.use(csrf({
   secure: process.env.NODE_ENV === 'production'
 }))
 ```
+
+#### 認証機能の段階的実装計画
+
+1. **Phase 1（開発段階）**: 固定匿名ユーザーでUI/API開発
+2. **Phase 2（テスト段階）**: NextAuth.js + JWT認証の実装
+3. **Phase 3（本番段階）**: セッション永続化とセキュリティ強化
 
 ### データ保護
 
@@ -555,7 +578,7 @@ app.use(csrf({
 
 ## デプロイメント戦略
 
-### 開発環境
+### 開発環境（2025年1月更新）
 
 ```bash
 # Next.js プロジェクト作成
@@ -564,22 +587,43 @@ npx create-next-app@latest ichibetu --typescript --tailwind --eslint --app
 # 必要なパッケージインストール
 npm install prisma @prisma/client next-auth framer-motion @vercel/blob
 
-# Prisma初期化
+# Prisma初期化（SQLite使用）
 npx prisma init
+npx prisma generate
+npx prisma db push
 
 # 開発サーバー起動
 npm run dev
 ```
 
-### 環境変数設定
+### 環境変数設定（開発段階）
 
 ```bash
 # .env.local
-DATABASE_URL="mysql://username:password@host:port/database"
+# Database (SQLite for development)
+DATABASE_URL="file:./dev.db"
+
+# NextAuth.js
 NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-key"
+NEXTAUTH_SECRET="FPHJlCQE36JBaMS2Y49OgsA0CeLJQrBghSz4OFEc6/c="
+
+# Vercel Blob Storage (開発段階では未使用)
 BLOB_READ_WRITE_TOKEN="your-vercel-blob-token"
+
+# Environment
+NODE_ENV="development"
 ```
+
+### データベース選択肢
+
+#### 開発環境
+- **SQLite**: ローカル開発用（現在使用中）
+- **利点**: 設定不要、高速、オフライン動作
+
+#### 本番環境候補
+- **Supabase**: PostgreSQL、無料枠500MB
+- **Railway**: PostgreSQL/MySQL、$5/月クレジット
+- **Neon**: サーバーレスPostgreSQL、無料枠512MB
 
 ### 本番環境
 
@@ -631,3 +675,54 @@ jobs:
 3. **お気に入り継続率**: お気に入り後の行動追跡
 
 この設計書は、『一瞥』のMVP版を効率的に開発するための技術的基盤を提供します。シンプルでありながら拡張性を考慮した設計により、将来の機能追加にも対応できる構成となっています。
+##
+ 開発段階での技術的決定事項（2025年1月追記）
+
+### 認証機能の簡素化
+
+**背景**: NextAuth.jsの複雑な設定により開発が停滞したため、段階的アプローチを採用
+
+**現在の実装**:
+```typescript
+// 開発用の固定匿名ユーザー
+export function useAuth() {
+  const [userId] = useState(() => `dev_user_${Date.now()}`)
+  return {
+    user: { id: userId, name: "開発用ユーザー" },
+    userId: userId,
+    isLoading: false,
+    isAuthenticated: true,
+  }
+}
+```
+
+**利点**:
+- 即座にUI/API開発に集中可能
+- 認証エラーによる開発停滞を回避
+- 後から本格的な認証機能を追加可能
+
+### データベース選択
+
+**背景**: PlanetScaleが有料のため、開発段階ではSQLiteを採用
+
+**現在の設定**:
+- **開発**: SQLite (`./dev.db`)
+- **本番**: 後で選択（Supabase、Railway、Neon等）
+
+### 画像ストレージ
+
+**背景**: Vercel Blob Storageが有料のため、開発段階では後回し
+
+**現在の方針**:
+- **開発**: ローカルファイルシステム（`public/uploads/`）
+- **本番**: Cloudinary無料枠またはFirebase Storage
+
+### 開発優先順位
+
+1. **Phase 1**: API Routes実装（認証なし）
+2. **Phase 2**: フロントエンドUI実装
+3. **Phase 3**: 認証機能の本格実装
+4. **Phase 4**: 画像アップロード機能
+5. **Phase 5**: 本番環境デプロイ
+
+この段階的アプローチにより、MVPの核心機能（スワイプUI、店舗表示、お気に入り）を優先的に開発し、後から認証やストレージ機能を追加する方針とする。
