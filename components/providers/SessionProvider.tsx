@@ -33,17 +33,9 @@ function AutoAnonymousUser({ children }: { children: React.ReactNode }) {
 }
 
 export function SessionProvider({ children }: SessionProviderProps) {
-  // 開発段階では認証機能を無効化
-  return <>{children}</>
-  
-  // 後で有効化する場合は以下のコメントアウトを解除
-  /*
   return (
     <NextAuthSessionProvider>
-      <AutoAnonymousUser>
-        {children}
-      </AutoAnonymousUser>
+      {children}
     </NextAuthSessionProvider>
   )
-  */
 }
