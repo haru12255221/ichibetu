@@ -104,7 +104,7 @@ export default function TestComponentsPage() {
             <div>
               <h3 className="text-body font-medium mb-2">通常の画像</h3>
               <OptimizedImage
-                src="/api/placeholder/300/200"
+                src="https://via.placeholder.com/300x200/f3f4f6/6b7280?text=Test+Image"
                 alt="テスト画像"
                 width={300}
                 height={200}

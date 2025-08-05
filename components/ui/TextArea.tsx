@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef } from 'react';
+import { forwardRef, useId } from 'react';
 
 interface TextAreaProps {
   placeholder?: string;
@@ -31,11 +31,12 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({
   maxLength,
   showCharCount = false,
 }, ref) => {
+  const generatedId = useId();
+  const textAreaId = id || generatedId;
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value);
   };
-
-  const textAreaId = id || `textarea-${Math.random().toString(36).substr(2, 9)}`;
   const charCount = value.length;
   const isOverLimit = maxLength ? charCount > maxLength : false;
 

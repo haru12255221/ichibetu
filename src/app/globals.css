@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #111827;   /* より濃い文字色 */
   
   /* 一瞥デザインシステム */
   --primary: #000000;      /* メインブラック */
@@ -11,6 +11,12 @@
   --danger: #EF4444;       /* レッド */
   --warning: #F59E0B;      /* オレンジ */
   --surface: #F9FAFB;      /* サーフェス */
+  
+  /* テキストカラー階層 */
+  --text-primary: #111827;    /* メインテキスト */
+  --text-secondary: #374151;  /* セカンダリテキスト */
+  --text-tertiary: #6B7280;   /* 補助テキスト */
+  --text-disabled: #9CA3AF;   /* 無効状態 */
 }
 
 @theme inline {
@@ -33,29 +39,33 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* 一瞥タイポグラフィ */
+/* 一瞥タイポグラフィ - 読みやすい文字色に調整 */
 .text-display { 
   font-size: 3rem; 
   font-weight: 700; 
   line-height: 1.1;
+  color: #111827; /* より濃い黒 */
 }
 
 .text-heading { 
   font-size: 1.5rem; 
   font-weight: 600; 
   line-height: 1.3;
+  color: #111827; /* より濃い黒 */
 }
 
 .text-body { 
   font-size: 1rem; 
   font-weight: 400; 
   line-height: 1.6;
+  color: #374151; /* 読みやすいダークグレー */
 }
 
 .text-caption { 
   font-size: 0.875rem; 
   font-weight: 400; 
   line-height: 1.4;
+  color: #6B7280; /* 適度なグレー */
 }
 
 /* タッチ操作最適化 */
@@ -63,4 +73,39 @@ body {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+}
+
+/* テキストカラーユーティリティ */
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
+.text-disabled {
+  color: var(--text-disabled);
+}
+
+/* 一瞥アプリ全体のデフォルトスタイル改善 */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+/* フォーム要素の文字色改善 */
+input, textarea, select {
+  color: var(--text-primary) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-tertiary) !important;
 }

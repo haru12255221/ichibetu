@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef } from 'react';
+import { forwardRef, useId } from 'react';
 
 interface InputProps {
   type?: 'text' | 'email' | 'tel' | 'url' | 'password';
@@ -27,11 +27,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   label,
   id,
 }, ref) => {
+  const generatedId = useId();
+  const inputId = id || generatedId;
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
-
-  const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
 
   return (
     <div className={`w-full ${className}`}>
