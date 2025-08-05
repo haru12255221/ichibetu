@@ -62,7 +62,7 @@ export default function Modal({
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* オーバーレイ */}
       <div 
-        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+        className="fixed inset-0 bg-primary bg-opacity-40 transition-opacity backdrop-blur-sm"
         onClick={handleOverlayClick}
       />
       
@@ -71,16 +71,16 @@ export default function Modal({
         <div 
           className={`
             relative w-full ${sizeStyles[size]}
-            bg-white rounded-lg shadow-xl
-            transform transition-all
+            bg-surface-elevated rounded-lg shadow-xl border border-border-light
+            transform transition-all duration-300
             ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}
           `}
         >
           {/* ヘッダー */}
           {(title || showCloseButton) && (
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div className="flex items-center justify-between p-4 border-b border-border">
               {title && (
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-semibold text-primary">
                   {title}
                 </h3>
               )}
@@ -88,10 +88,10 @@ export default function Modal({
               {showCloseButton && (
                 <button
                   onClick={onClose}
-                  className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+                  className="p-1 rounded-md hover:bg-surface transition-all duration-300 hover:shadow-sm"
                   aria-label="閉じる"
                 >
-                  <XMarkIcon className="w-5 h-5 text-gray-500" />
+                  <XMarkIcon className="w-5 h-5 text-secondary" />
                 </button>
               )}
             </div>

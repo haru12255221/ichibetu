@@ -26,22 +26,22 @@ export default function Navigation({
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-surface-elevated/90 backdrop-blur-sm border-b border-border">
       <div className="flex items-center justify-between px-4 py-3">
         {/* 戻るボタン */}
         {showBack && (
           <button
             onClick={handleBack}
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-white/80 shadow-sm hover:bg-white transition-colors"
+            className="flex items-center justify-center w-10 h-10 rounded-md bg-surface/80 shadow-sm hover:bg-surface-elevated transition-all duration-300 hover:shadow-md"
             aria-label="戻る"
           >
-            <ArrowLeftIcon className="w-5 h-5 text-gray-700" />
+            <ArrowLeftIcon className="w-5 h-5 text-primary" />
           </button>
         )}
 
         {/* タイトル */}
         {title && (
-          <h1 className="text-lg font-semibold text-gray-900 flex-1 text-center">
+          <h1 className="text-lg font-semibold text-primary flex-1 text-center">
             {title}
           </h1>
         )}
@@ -50,13 +50,13 @@ export default function Navigation({
         {showFavorite && (
           <button
             onClick={onFavoriteToggle}
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-white/80 shadow-sm hover:bg-white transition-colors"
+            className="flex items-center justify-center w-10 h-10 rounded-md bg-surface/80 shadow-sm hover:bg-surface-elevated transition-all duration-300 hover:shadow-md"
             aria-label={isFavorited ? 'お気に入りから削除' : 'お気に入りに追加'}
           >
             {isFavorited ? (
-              <HeartSolidIcon className="w-5 h-5 text-red-500" />
+              <HeartSolidIcon className="w-5 h-5 text-danger" />
             ) : (
-              <HeartIcon className="w-5 h-5 text-gray-700" />
+              <HeartIcon className="w-5 h-5 text-primary" />
             )}
           </button>
         )}

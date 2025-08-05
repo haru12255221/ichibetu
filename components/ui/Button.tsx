@@ -25,12 +25,12 @@ export default function Button({
   type = 'button',
   className = '',
 }: ButtonProps) {
-  // バリエーション別のスタイル
+  // バリエーション別のスタイル - 和のテイスト
   const variantStyles = {
-    primary: 'bg-black text-white hover:bg-gray-800 active:bg-gray-900',
-    secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200 active:bg-gray-300',
-    danger: 'bg-red-500 text-white hover:bg-red-600 active:bg-red-700',
-    ghost: 'bg-transparent text-gray-700 hover:bg-gray-100 active:bg-gray-200',
+    primary: 'bg-primary text-on-primary hover:bg-primary-light active:bg-primary-dark shadow-sm hover:shadow-md border border-primary/20',
+    secondary: 'bg-secondary text-on-secondary hover:bg-secondary-light active:bg-secondary-dark shadow-sm hover:shadow-md border border-secondary/20',
+    danger: 'bg-danger text-on-primary hover:opacity-90 active:opacity-80 shadow-sm hover:shadow-md border border-danger/20',
+    ghost: 'bg-transparent text-primary hover:bg-surface active:bg-border-light border border-border',
   };
 
   // サイズ別のスタイル
@@ -56,15 +56,15 @@ export default function Button({
       disabled={isDisabled}
       className={`
         inline-flex items-center justify-center
-        font-medium rounded-lg
-        transition-all duration-200
+        font-medium rounded-md
+        transition-all duration-300
         touch-manipulation
         select-none
         ${variantStyles[variant]}
         ${sizeStyles[size]}
         ${isDisabled 
           ? 'opacity-50 cursor-not-allowed' 
-          : 'cursor-pointer transform active:scale-95'
+          : 'cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0 hover:scale-[1.02]'
         }
         ${className}
       `}

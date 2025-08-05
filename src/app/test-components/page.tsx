@@ -32,28 +32,43 @@ export default function TestComponentsPage() {
       showNavigation 
       showBack 
       title="コンポーネントテスト"
-      className="bg-gray-50"
+      className="bg-surface"
     >
       <div className="max-w-4xl mx-auto p-6 space-y-8">
         
         {/* ボタンコンポーネント */}
-        <Card>
-          <h2 className="text-heading mb-4">ボタンコンポーネント</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button variant="primary">Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="danger">Danger</Button>
-            <Button variant="ghost">Ghost</Button>
+        <Card shadow="lg" padding="lg">
+          <h2 className="text-heading mb-6 text-primary">ボタンコンポーネント</h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-subheading mb-3 text-secondary">バリエーション</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <Button variant="primary">墨色</Button>
+                <Button variant="secondary">利休茶</Button>
+                <Button variant="danger">赤茶</Button>
+                <Button variant="ghost">透明</Button>
+              </div>
+            </div>
             
-            <Button size="sm">Small</Button>
-            <Button size="md">Medium</Button>
-            <Button size="lg">Large</Button>
-            <Button loading={isLoading} onClick={handleButtonClick}>
-              Loading Test
-            </Button>
+            <div>
+              <h3 className="text-subheading mb-3 text-secondary">サイズ</h3>
+              <div className="grid grid-cols-3 gap-4">
+                <Button size="sm">Small</Button>
+                <Button size="md">Medium</Button>
+                <Button size="lg">Large</Button>
+              </div>
+            </div>
             
-            <Button icon={<HeartIcon />}>With Icon</Button>
-            <Button disabled>Disabled</Button>
+            <div>
+              <h3 className="text-subheading mb-3 text-secondary">状態</h3>
+              <div className="grid grid-cols-3 gap-4">
+                <Button loading={isLoading} onClick={handleButtonClick}>
+                  {isLoading ? 'Loading...' : 'ローディングテスト'}
+                </Button>
+                <Button icon={<HeartIcon />}>アイコン付き</Button>
+                <Button disabled>無効状態</Button>
+              </div>
+            </div>
           </div>
         </Card>
 
@@ -125,25 +140,31 @@ export default function TestComponentsPage() {
         </Card>
 
         {/* カードコンポーネント */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card shadow="sm" padding="sm">
-            <h3 className="text-body font-medium">Small Card</h3>
-            <p className="text-caption text-gray-600 mt-1">Shadow: sm, Padding: sm</p>
-          </Card>
-          
-          <Card shadow="md" padding="md" hover>
-            <h3 className="text-body font-medium">Medium Card (Hover)</h3>
-            <p className="text-caption text-gray-600 mt-1">Shadow: md, Padding: md</p>
-          </Card>
-          
-          <Card 
-            shadow="lg" 
-            padding="lg" 
-            onClick={() => alert('Card clicked!')}
-          >
-            <h3 className="text-body font-medium">Large Card (Clickable)</h3>
-            <p className="text-caption text-gray-600 mt-1">Shadow: lg, Padding: lg</p>
-          </Card>
+        <div className="space-y-4">
+          <h2 className="text-heading text-primary">カードコンポーネント</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card shadow="sm" padding="sm">
+              <div className="w-6 h-6 bg-primary rounded-sm mb-3 opacity-80"></div>
+              <h3 className="text-body font-medium text-primary">墨色カード</h3>
+              <p className="text-caption text-tertiary mt-1">控えめな影と余白</p>
+            </Card>
+            
+            <Card shadow="md" padding="md" hover>
+              <div className="w-6 h-6 bg-secondary rounded-sm mb-3 opacity-80"></div>
+              <h3 className="text-body font-medium text-secondary">利休茶カード</h3>
+              <p className="text-caption text-tertiary mt-1">ホバーで優雅に浮き上がる</p>
+            </Card>
+            
+            <Card 
+              shadow="lg" 
+              padding="lg" 
+              onClick={() => alert('和の心でクリックされました')}
+            >
+              <div className="w-6 h-6 bg-accent rounded-sm mb-3 opacity-80"></div>
+              <h3 className="text-body font-medium text-accent-dark">深緑カード</h3>
+              <p className="text-caption text-tertiary mt-1">クリックで静かな反応</p>
+            </Card>
+          </div>
         </div>
 
         {/* モーダル・ダイアログ */}
@@ -182,13 +203,39 @@ export default function TestComponentsPage() {
         </Card>
 
         {/* タイポグラフィ */}
-        <Card>
-          <h2 className="text-heading mb-4">タイポグラフィ</h2>
-          <div className="space-y-2">
-            <h1 className="text-display">一瞥 Display Text</h1>
-            <h2 className="text-heading">Heading Text</h2>
-            <p className="text-body">Body Text - これは本文用のテキストです。読みやすさを重視したサイズと行間になっています。</p>
-            <p className="text-caption">Caption Text - 補足情報や説明文に使用します。</p>
+        <Card shadow="lg" padding="lg">
+          <h2 className="text-heading mb-6 text-primary">タイポグラフィ</h2>
+          <div className="space-y-6">
+            <div className="p-6 bg-gradient-washi rounded-lg border border-border-light">
+              <h1 className="text-display text-primary">一瞥</h1>
+              <p className="text-caption text-tertiary mt-2">Display Text - 和の美しさでアプリタイトル</p>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <h2 className="text-heading">店舗の物語を静かに紡ぐ</h2>
+                <p className="text-caption text-tertiary">Heading Text - 和の心でセクション見出し</p>
+              </div>
+              
+              <div>
+                <h3 className="text-subheading">心に響く出会いを大切に</h3>
+                <p className="text-caption text-tertiary">Subheading Text - 落ち着いたサブセクション</p>
+              </div>
+              
+              <div>
+                <p className="text-body">
+                  これは本文用のテキストです。店舗の物語や想いを和の美しさで伝えるために、
+                  読みやすさと品格を重視したタイポグラフィを設計しています。
+                  日本の伝統色と現代的な読みやすさを調和させました。
+                </p>
+                <p className="text-caption text-tertiary">Body Text - 和の心で本文を美しく</p>
+              </div>
+              
+              <div>
+                <p className="text-caption">補足情報や説明文も、和の落ち着いた雰囲気で表現します。</p>
+                <p className="text-small text-tertiary">Caption Text - 控えめで上品な補足情報</p>
+              </div>
+            </div>
           </div>
         </Card>
 

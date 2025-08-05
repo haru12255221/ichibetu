@@ -19,7 +19,7 @@ export default function Card({
   onClick,
   hover = false,
 }: CardProps) {
-  // シャドウのスタイル
+  // シャドウのスタイル - 一瞥カラーシステム
   const shadowStyles = {
     none: '',
     sm: 'shadow-sm',
@@ -41,7 +41,7 @@ export default function Card({
     <div
       onClick={onClick}
       className={`
-        bg-white rounded-lg border border-gray-200
+        bg-surface-elevated rounded-lg border border-light
         ${shadowStyles[shadow]}
         ${paddingStyles[padding]}
         ${isClickable 
@@ -49,11 +49,11 @@ export default function Card({
           : ''
         }
         ${hover || isClickable 
-          ? 'transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5' 
-          : ''
+          ? 'transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-accent/30' 
+          : 'transition-all duration-200'
         }
         ${isClickable 
-          ? 'active:scale-95 active:shadow-md' 
+          ? 'active:scale-[0.98] active:shadow-md' 
           : ''
         }
         ${className}
