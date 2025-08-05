@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* 一瞥デザインシステム - 和の心で物語を紡ぐ */
+  
+  /* Primary Colors - 深い墨色（すみいろ）*/
+  --primary: #2F2F2F;           /* 墨色（店主の深い想い） */
+  --primary-light: #4A4A4A;     /* 薄墨色（ホバー状態） */
+  --primary-dark: #1A1A1A;      /* 濃墨色（アクティブ状態） */
+  
+  /* Secondary Colors - 温かい茶系（ちゃけい）*/
+  --secondary: #8B7355;         /* 利休茶（りきゅうちゃ）- 落ち着いた茶 */
+  --secondary-light: #B8A082;   /* 白茶（しらちゃ）- 薄い茶 */
+  --secondary-dark: #5D4E37;    /* 焦茶（こげちゃ）- 濃い茶 */
+  
+  /* Accent Colors - 上品な藍系（あいけい）*/
+  --accent: #4A6741;            /* 深緑（ふかみどり）- 自然な緑 */
+  --accent-light: #7A9471;      /* 若緑（わかみどり）- 薄い緑 */
+  --accent-dark: #2D3E2A;       /* 濃緑（こいみどり）- 濃い緑 */
+  
+  /* Neutral Colors - 和紙の質感 */
+  --background: #FDFCF8;        /* 生成り色（きなりいろ）- 和紙の白 */
+  --surface: #F7F5F0;           /* 胡粉色（ごふんいろ）- 薄いベージュ */
+  --surface-elevated: #FFFFFF;  /* 純白 */
+  --border: #E8E3D8;            /* 白練色（しろねりいろ）- 境界線 */
+  --border-light: #F0EDE6;      /* より薄い境界線 */
+  
+  /* Text Colors - 読みやすい墨の階調 */
+  --text-primary: #2C2C2C;      /* 濃墨（こずみ）- メインテキスト */
+  --text-secondary: #4F4F4F;    /* 中墨（ちゅうずみ）- セカンダリテキスト */
+  --text-tertiary: #7A7A7A;     /* 薄墨（うすずみ）- 補助テキスト */
+  --text-disabled: #B0B0B0;     /* 無効状態 */
+  --text-on-primary: #FDFCF8;   /* プライマリ背景上のテキスト */
+  --text-on-secondary: #FDFCF8; /* セカンダリ背景上のテキスト */
+  --text-on-accent: #FDFCF8;    /* アクセント背景上のテキスト */
+  
+  /* Status Colors - 自然な色合い */
+  --success: #4A6741;           /* 深緑（成功） */
+  --success-light: #E8F0E6;     /* 薄緑背景 */
+  --warning: #B8860B;           /* 山吹色（やまぶきいろ）- 警告 */
+  --warning-light: #FDF6E3;     /* 薄黄背景 */
+  --danger: #8B4513;            /* 赤茶色（エラー） */
+  --danger-light: #F5E6E0;      /* 薄赤背景 */
+  --info: #4682B4;              /* 鋼青色（はがねあおいろ）- 情報 */
+  --info-light: #E6F1F8;        /* 薄青背景 */
+  
+  /* Shadow Colors - 和紙の影 */
+  --shadow-sm: 0 1px 2px 0 rgba(44, 44, 44, 0.04);
+  --shadow-md: 0 2px 4px 0 rgba(44, 44, 44, 0.06), 0 1px 2px 0 rgba(44, 44, 44, 0.04);
+  --shadow-lg: 0 4px 8px 0 rgba(44, 44, 44, 0.08), 0 2px 4px 0 rgba(44, 44, 44, 0.06);
+  --shadow-xl: 0 8px 16px 0 rgba(44, 44, 44, 0.10), 0 4px 8px 0 rgba(44, 44, 44, 0.08);
+  
+  /* 基本設定 */
+  --background: var(--background);
+  --foreground: var(--text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 一瞥タイポグラフィ - 物語を美しく伝える */
+.text-display { 
+  font-size: 2.5rem; 
+  font-weight: 700; 
+  line-height: 1.2;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+}
+
+.text-heading { 
+  font-size: 1.5rem; 
+  font-weight: 600; 
+  line-height: 1.4;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+}
+
+.text-subheading {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.text-body { 
+  font-size: 1rem; 
+  font-weight: 400; 
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.text-caption { 
+  font-size: 0.875rem; 
+  font-weight: 400; 
+  line-height: 1.5;
+  color: var(--text-tertiary);
+}
+
+.text-small {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-tertiary);
+}
+
+/* タッチ操作最適化 */
+.touch-optimized {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* テキストカラーユーティリティ */
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
+.text-disabled {
+  color: var(--text-disabled);
+}
+
+/* 一瞥アプリ全体のデフォルトスタイル - 美しい物語のために */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 0;
+}
+
+p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* リンクスタイル */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* フォーム要素の美しいスタイル - 和の質感 */
+input, textarea, select {
+  color: var(--text-primary);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(74, 103, 65, 0.1);
+  background-color: var(--surface-elevated);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* ボタンの基本スタイル */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* カードの美しいスタイル - 和紙の質感 */
+.card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: var(--border);
+}
+
+/* スクロールバーのカスタマイズ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+/* 一瞥専用ユーティリティクラス */
+
+/* 背景色 */
+.bg-primary { background-color: var(--primary); }
+.bg-primary-light { background-color: var(--primary-light); }
+.bg-primary-dark { background-color: var(--primary-dark); }
+.bg-secondary { background-color: var(--secondary); }
+.bg-secondary-light { background-color: var(--secondary-light); }
+.bg-accent { background-color: var(--accent); }
+.bg-accent-light { background-color: var(--accent-light); }
+.bg-surface { background-color: var(--surface); }
+.bg-surface-elevated { background-color: var(--surface-elevated); }
+
+/* テキスト色 */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary { color: var(--text-tertiary); }
+.text-disabled { color: var(--text-disabled); }
+.text-on-primary { color: var(--text-on-primary); }
+.text-on-secondary { color: var(--text-on-secondary); }
+.text-on-accent { color: var(--text-on-accent); }
+
+/* 境界線色 */
+.border-primary { border-color: var(--primary); }
+.border-secondary { border-color: var(--secondary); }
+.border-accent { border-color: var(--accent); }
+.border-default { border-color: var(--border); }
+.border-light { border-color: var(--border-light); }
+
+/* 状態色 */
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+.text-danger { color: var(--danger); }
+.text-info { color: var(--info); }
+.bg-success { background-color: var(--success); }
+.bg-success-light { background-color: var(--success-light); }
+.bg-warning { background-color: var(--warning); }
+.bg-warning-light { background-color: var(--warning-light); }
+.bg-danger { background-color: var(--danger); }
+.bg-danger-light { background-color: var(--danger-light); }
+.bg-info { background-color: var(--info); }
+.bg-info-light { background-color: var(--info-light); }
+
+/* シャドウ */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+
+/* 一瞥専用コンポーネントスタイル */
+.ichibetu-button-primary {
+  background-color: var(--primary);
+  color: var(--text-on-primary);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.ichibetu-button-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.ichibetu-button-secondary {
+  background-color: var(--secondary);
+  color: var(--text-on-secondary);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.ichibetu-button-secondary:hover {
+  background-color: var(--secondary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.ichibetu-button-accent {
+  background-color: var(--accent);
+  color: var(--text-on-accent);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.ichibetu-button-accent:hover {
+  background-color: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.ichibetu-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.ichibetu-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* 一瞥アプリ専用のグラデーション - 和の美しさ */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--secondary) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
+}
+
+.gradient-warm {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-light) 50%, var(--accent-light) 100%);
+}
+
+/* 和風の特別なグラデーション */
+.gradient-washi {
+  background: linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+}
+
+.gradient-sumi {
+  background: linear-gradient(135deg, var(--text-tertiary) 0%, var(--text-primary) 100%);
+}
